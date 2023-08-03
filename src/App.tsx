@@ -1,26 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {useState} from "react";
+import "./App.css";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+interface VegetableProps {
+    name: string;
 }
+
+const vegetables: VegetableProps[] = [
+    {name: "Carrot"},
+    {name: "Broccoli"},
+    {name: "Spinach"},
+    {name: "Tomato"},
+    {name: "Bell Pepper"},
+    {name: "Cucumber"},
+    {name: "Kale"},
+];
+
+const App: React.FC = () => {
+    const [selectedVegetable, setSelectedVegetable] = useState<string>("");
+
+    const handleSpin = () => {
+        const randomIndex = Math.floor(Math.random() * vegetables.length);
+        setSelectedVegetable(vegetables[randomIndex].name);
+    };
+
+    return (
+        <div className="App">
+            <h1>SnapVeg</h1>
+            <div className="wheel">
+                {selectedVegetable ? <p>Today's Vegetable: {selectedVegetable}</p> : null}
+                <button onClick={handleSpin}>Spin the Wheel</button>
+            </div>
+        </div>
+    );
+};
 
 export default App;
